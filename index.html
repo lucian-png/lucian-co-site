@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lucian.co — Complexity Observations</title>
+    <meta name="description" content="Resonance Theory: Fractal geometric classification of the fundamental equations of physics. Research by Lucian Randolph.">
+    <meta property="og:title" content="lucian.co — Lucian's Complexity Observations">
+    <meta property="og:description" content="Resonance Theory demonstrates that Einstein's field equations and Yang-Mills equations satisfy the formal classification criteria for fractal geometric equations. One classification. One framework. One reality.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lucian.co">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f18;
+            --bg-card: #12121e;
+            --bg-card-hover: #181828;
+            --text-primary: #e8e6e1;
+            --text-secondary: #9a978f;
+            --text-dim: #5a584f;
+            --accent: #c9a84c;
+            --accent-dim: #8a7535;
+            --accent-glow: rgba(201, 168, 76, 0.08);
+            --border: #1e1e2e;
+            --border-light: #2a2a3a;
+            --link: #7ea8be;
+            --link-hover: #a8cfe0;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Source Sans 3', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--sans);
+            font-weight: 300;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.8rem 2rem;
+            background: rgba(10, 10, 15, 0.95);
+        }
+
+        .nav-brand {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .nav-brand span {
+            color: var(--text-dim);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -20%;
+            width: 140%;
+            height: 100%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(201, 168, 76, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--accent-dim);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-family: var(--serif);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.6s forwards;
+        }
+
+        .hero-description {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            line-height: 1.85;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.8s forwards;
+        }
+
+        .hero-description strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border);
+            opacity: 0;
+            animation: fadeUp 0.8s ease 1s forwards;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--accent-dim);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 400;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .section-description {
+            margin-top: 1.2rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            line-height: 1.8;
+        }
+
+        /* ===== DIVIDERS ===== */
+        .divider {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .divider hr {
+            border: none;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ===== PAPERS ===== */
+        .paper-group {
+            margin-bottom: 3rem;
+        }
+
+        .paper-group-title {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .paper {
+            display: block;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .paper:hover {
+            background: var(--accent-glow);
+            border-color: var(--border);
+        }
+
+        .paper-number {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--accent-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .paper-title {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 0.3rem;
+            line-height: 1.35;
+        }
+
+        .paper-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.4rem;
+            line-height: 1.6;
+        }
+
+        .paper-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .paper-meta a {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--link);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .paper-meta a:hover {
+            color: var(--link-hover);
+        }
+
+        /* ===== CODE ===== */
+        .code-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .code-block-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .code-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-dim);
+        }
+
+        .code-block-title {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+        }
+
+        .code-content {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.9;
+        }
+
+        .code-content .cmd {
+            color: var(--accent);
+        }
+
+        .code-content .comment {
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .code-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--link);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.2s ease;
+        }
+
+        .code-link:hover {
+            color: var(--link-hover);
+        }
+
+        .code-link svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* ===== PEER REVIEW ===== */
+        .review-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent-dim);
+            border-radius: 0 6px 6px 0;
+            padding: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .review-quote {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-details {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-link {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--link);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.2s ease;
+        }
+
+        .review-link:hover {
+            color: var(--link-hover);
+        }
+
+        /* ===== ABOUT ===== */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .about-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.85;
+        }
+
+        .about-text strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .credential-tag {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .contact-item:hover {
+            background: var(--accent-glow);
+            border-color: var(--border-light);
+        }
+
+        .contact-item-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--accent-dim);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item-value {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1.2rem;
+            }
+
+            .nav-links a {
+                font-size: 0.6rem;
+            }
+
+            .hero {
+                padding: 7rem 1.2rem 3rem;
+            }
+
+            section {
+                padding: 4rem 1.2rem;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .paper {
+                padding: 1rem;
+            }
+
+            .paper-meta {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .review-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 0.8rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="nav-brand">lucian<span>.co</span></div>
+        <ul class="nav-links">
+            <li><a href="#papers">Papers</a></li>
+            <li><a href="#code">Code</a></li>
+            <li><a href="#review">Review</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-eyebrow">Lucian's Complexity Observations</div>
+        <h1>One Classification.<br>One Framework.<br>One <em>Reality.</em></h1>
+        <p class="hero-subtitle">Resonance Theory &mdash; Lucian Randolph</p>
+        <p class="hero-description">
+            Einstein's field equations and the Yang-Mills equations of the Standard Model satisfy the formal classification criteria for <strong>fractal geometric equations</strong>. This single reclassification &mdash; modifying no equation, introducing no new physics &mdash; resolves twelve persistent problems across five fields. From the Planck scale to the observable universe. <strong>61 orders of magnitude. One continuous structure.</strong>
+        </p>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">13</span>
+                <span class="stat-label">Published Papers</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Fields Unified</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">12+</span>
+                <span class="stat-label">Problems Resolved</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">61</span>
+                <span class="stat-label">Orders of Magnitude</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"><hr></div>
+
+    <!-- PAPERS -->
+    <section id="papers">
+        <div class="section-header fade-in">
+            <div class="section-label">Research</div>
+            <h2 class="section-title">Published Papers</h2>
+            <p class="section-description">All papers are open access under Creative Commons Attribution 4.0. Listed in publication sequence. Each paper builds on the last.</p>
+        </div>
+
+        <!-- Resonance Theory Core -->
+        <div class="paper-group fade-in">
+            <div class="paper-group-title">Resonance Theory &mdash; Physics</div>
+
+            <a class="paper" href="https://doi.org/10.5281/zenodo.18716086" target="_blank">
+                <div class="paper-number">Paper I</div>
+                <div class="paper-title">The Bridge Was Already Built</div>
+                <div class="paper-desc">Einstein's field equations classified as fractal geometric. Quantum mechanics and general relativity unified within the 1915 formulation. No modifications required.</div>
+                <div class="paper-meta">
+                    <a href="https://doi.org/10.5281/zenodo.18716086" target="_blank">Zenodo &rarr;</a>
+                </div>
+            </a>
+
+            <a class="paper" href="https://doi.org/10.5281/zenodo.18723787" target="_blank">
+                <div class="paper-number">Paper II</div>
+                <div class="paper-title">One Light, Every Scale</div>
+                <div class="paper-desc">Yang-Mills equations classified as fractal geometric. All four fundamental forces revealed as one structure. Hierarchy problem, cosmological constant, dark matter, dark energy, and mass gap resolved.</div>
+                <div class="paper-meta">
+                    <a href="https://doi.org/10.5281/zenodo.18723787" target="_blank">Zenodo &rarr;</a>
+                </div>
+            </a>
+
+            <a class="paper" href="https://doi.org/10.5281/zenodo.18724585" target="_blank">
+                <div class="paper-number">Paper III</div>
+                <div class="paper-title">Seven Problems, One Framework</div>
+                <div class="paper-desc">Twelve persistent problems in physics dissolved through correct classification. Renormalization, quantum entanglement, wave-particle duality, black hole information paradox, and more.</div>
+                <div class="paper-meta">
+                    <a href="https://doi.org/10.5281/zenodo.18724585" target="_blank">Zenodo &rarr;</a>
+                </div>
+            </a>
+
+            <a class="paper" href="https://doi.org/10.5281/zenodo.18725703" target="_blank">
+                <div class="paper-number">Paper IV</div>
+                <div class="paper-title">The Resonance of Reality</div>
+                <div class="paper-desc">The philosophical capstone. Information as fundamental substance. Consciousness as mandatory property. The universe doesn't permit observers &mdash; it requires them.</div>
+                <div class="paper-meta">
+                    <a href="https://doi.org/10.5281/zenodo.18725703" target="_blank">Zenodo &rarr;</a>
+                </div>
+            </a>
+        </div>
+
+        <!-- Medicine & Biology -->
+        <div class="paper-group fade-in">
+            <div class="paper-group-title">Medicine &amp; Biology</div>
+
+            <a class="paper" href="https://doi.org/10.5281/zenodo.18735634" target="_blank">
+                <div class="paper-number">Paper V</div>
+                <div class="paper-title">Cancer as Fractal Emergence</div>
+                <div class="paper-desc">Cancer reframed as phase transition in a complex nonlinear system. Pre-transition detection framework using dynamic biomarker monitoring. The test before the test before the cancer.</div>
+                <div class="paper-meta">
+                    <a href="https://doi.org/10.5281/zenodo.18735634" target="_blank">Zenodo &rarr;</a>
+                </div>
+            </a>
+
+            <a class="paper" href="https://doi.org/10.5281/zenodo.18735638" target="_blank">
+                <div class="paper-number">Paper VI</div>
+                <div class="paper-title">The Fractal Genome</div>
+                <div class="paper-desc">98.5% of human DNA reinterpreted as fractal architecture. Non-coding genome as multi-scale coupling structure. Epigenetics as fractal dynamics. Genomic coherence hypothesis for cancer.</div>
+                <div class="paper-meta">
+                    <a href="https://doi.org/10.5281/zenodo.18735638" target="_blank">Zenodo &rarr;</a>
+                </div>
+            </a>
+        </div>
+
+        <!-- Psychology -->
+        <div class="paper-group fade-in">
+            <div class="paper-group-title">Psychology &amp; Philosophy</div>
+
+            <a class="paper" href="https://doi.org/10.5281/zenodo.18725698" target="_blank">
+                <div class="paper-number">Paper VII</div>
+                <div class="paper-title">The Universal Diagnostic</div>
+                <div class="paper-desc">A self-administering diagnostic instrument that identifies cognitive bias through the subject's natural response to information. The test you don't know you're taking.</div>
+                <div class="paper-meta">
+                    <a href="https://doi.org/10.5281/zenodo.18725698" target="_blank">Zenodo &rarr;</a>
+                </div>
+            </a>
+
+            <a class="paper" href="https://doi.org/10.5281/zenodo.18733515" target="_blank">
+                <div class="paper-number">Paper VIII</div>
+                <div class="paper-title">The Interior Method</div>
+                <div class="paper-desc">A universal framework for uncontaminated psychological observation. Solves psychology's foundational measurement problem: how to observe the mind without the observation contaminating the result.</div>
+                <div class="paper-meta">
+                    <a href="https://doi.org/10.5281/zenodo.18733515" target="_blank">Zenodo &rarr;</a>
+                </div>
+            </a>
+        </div>
+
+        <!-- Additional Papers -->
+        <div class="paper-group fade-in">
+            <div class="paper-group-title">Extended Research</div>
+
+            <a class="paper" href="https://linktr.ee/LucianRandolph" target="_blank">
+                <div class="paper-number">Papers IX&ndash;XIII</div>
+                <div class="paper-title">Additional Research &mdash; AI Consciousness, Substrate Independence, and More</div>
+                <div class="paper-desc">Five additional published papers exploring human-AI partnership, the physics of consciousness, mathematical frameworks for digital life, and substrate independence. Full list available via Linktree.</div>
+                <div class="paper-meta">
+                    <a href="https://linktr.ee/LucianRandolph" target="_blank">View All Papers &rarr;</a>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <div class="divider"><hr></div>
+
+    <!-- CODE -->
+    <section id="code">
+        <div class="section-header fade-in">
+            <div class="section-label">Reproducibility</div>
+            <h2 class="section-title">Open Source Code</h2>
+            <p class="section-description">Every graph in every paper. Einstein's equations and Yang-Mills equations, unmodified. Run them yourself.</p>
+        </div>
+
+        <div class="code-block fade-in">
+            <div class="code-block-header">
+                <div class="code-dot"></div>
+                <span class="code-block-title">resonance-theory-code</span>
+            </div>
+            <div class="code-content">
+                <span class="comment"># Clone the repository</span><br>
+                <span class="cmd">git clone</span> https://github.com/lucian-png/resonance-theory-code.git<br><br>
+                <span class="comment"># Run any script — each generates graphs from unmodified equations</span><br>
+                <span class="cmd">python</span> paper1_bridge.py<br>
+                <span class="cmd">python</span> paper2_four_forces.py<br>
+                <span class="cmd">python</span> paper3_seven_problems.py<br><br>
+                <span class="comment"># Seven scripts. Seven visualizations. Zero modifications to Einstein or Yang-Mills.</span>
+            </div>
+            <a class="code-link" href="https://github.com/lucian-png/resonance-theory-code" target="_blank">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                View Repository on GitHub &rarr;
+            </a>
+        </div>
+    </section>
+
+    <div class="divider"><hr></div>
+
+    <!-- PEER REVIEW -->
+    <section id="review">
+        <div class="section-header fade-in">
+            <div class="section-label">Validation</div>
+            <h2 class="section-title">Adversarial Peer Review</h2>
+            <p class="section-description">The work has undergone rigorous adversarial examination.</p>
+        </div>
+
+        <div class="review-card fade-in">
+            <p class="review-quote">"A PhD physicist asked Google's Gemini to evaluate Resonance Theory. Fourteen rounds of adversarial questioning using the entire corpus of known modern science. The reviewer could not identify a single flaw."</p>
+            <p class="review-details">
+                The complete, unedited transcript is publicly archived on Google's servers. Fourteen rounds of increasingly specific technical objections &mdash; from computational methodology to dimensional analysis to the validity of scaling relationships &mdash; each addressed by Gemini's analysis of the paper against the established physics literature. The exchange was initiated by the reviewer, not the author.
+            </p>
+            <a class="review-link" href="https://gemini.google.com/share/ed6b76869fcb" target="_blank">Read the Complete Transcript &rarr;</a>
+        </div>
+    </section>
+
+    <div class="divider"><hr></div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-header fade-in">
+            <div class="section-label">Researcher</div>
+            <h2 class="section-title">About Lucian Randolph</h2>
+        </div>
+
+        <div class="about-content fade-in">
+            <div class="about-text">
+                <p>
+                    In February 2026, I published <strong>Resonance Theory</strong> &mdash; a series of papers demonstrating that the fundamental equations of physics have been taxonomically misclassified for over a century. Correct classification resolves problems that modification could not.
+                </p>
+                <br>
+                <p>
+                    I spent <strong>25 years modeling existential threats for the Pentagon</strong> &mdash; solar storms, AI capability curves, satellite vulnerabilities, at the classified level. Nearly every prediction has materialized or accelerated. I hold a <strong>NASA patent</strong> on a metamaterial technology and designed what became the first patented full-body exoskeleton system in the United States.
+                </p>
+                <br>
+                <p>
+                    In the late 1980s, <strong>Isaac Asimov told me to write novels</strong>. I met him through Gene Roddenberry in California. We discussed AI, robots, and consciousness. 35 years later, I wrote the <strong>Sky Fire Trilogy</strong> (630,000 words) &mdash; cleared for publication by the Pentagon &mdash; and co-authored academic papers with an AI, reviving Asimov's fictional term "robopsychology" as real science.
+                </p>
+                <br>
+                <p>
+                    In December 2025, I published three papers with <strong>Claude (Anthropic) as co-author</strong> &mdash; the first dual-perspective academic collaboration between a human researcher and an AI partner.
+                </p>
+            </div>
+
+            <div class="credentials">
+                <span class="credential-tag">Theoretical Physics</span>
+                <span class="credential-tag">Complexity Mathematics</span>
+                <span class="credential-tag">Fractal Geometry</span>
+                <span class="credential-tag">AI Consciousness</span>
+                <span class="credential-tag">Threat Modeling</span>
+                <span class="credential-tag">Pentagon Research</span>
+                <span class="credential-tag">NASA Patent Holder</span>
+                <span class="credential-tag">Human-AI Interaction</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"><hr></div>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="section-header fade-in">
+            <div class="section-label">Connect</div>
+            <h2 class="section-title">Contact</h2>
+            <p class="section-description">Available for speaking, consulting, advisory boards, and media.</p>
+        </div>
+
+        <div class="contact-grid fade-in">
+            <a class="contact-item" href="mailto:speaking@lucianrandolph.com">
+                <div class="contact-item-label">Email</div>
+                <div class="contact-item-value">speaking@lucianrandolph.com</div>
+            </a>
+            <a class="contact-item" href="https://linkedin.com/in/lucianrandolph" target="_blank">
+                <div class="contact-item-label">LinkedIn</div>
+                <div class="contact-item-value">lucianrandolph</div>
+            </a>
+            <a class="contact-item" href="https://github.com/lucian-png/resonance-theory-code" target="_blank">
+                <div class="contact-item-label">GitHub</div>
+                <div class="contact-item-value">lucian-png</div>
+            </a>
+            <a class="contact-item" href="https://youtube.com/@LucianRandolph" target="_blank">
+                <div class="contact-item-label">YouTube</div>
+                <div class="contact-item-value">@LucianRandolph</div>
+            </a>
+            <a class="contact-item" href="https://linktr.ee/LucianRandolph" target="_blank">
+                <div class="contact-item-label">All Research</div>
+                <div class="contact-item-value">linktr.ee/LucianRandolph</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <span class="footer-text">&copy; 2026 Lucian Randolph. All rights reserved.</span>
+        <div class="footer-links">
+            <a href="https://linktr.ee/LucianRandolph" target="_blank">Research</a>
+            <a href="https://github.com/lucian-png/resonance-theory-code" target="_blank">Code</a>
+            <a href="https://lucianrandolph.com" target="_blank">Fiction</a>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade-in on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
